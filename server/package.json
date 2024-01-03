@@ -1,11 +1,23 @@
 {
   "name": "bun-graphql-boilerplate",
   "module": "main.ts",
-  "type": "module",
   "devDependencies": {
     "bun-types": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@apollo/server": "^4.10.0",
+    "@elysiajs/apollo": "^0.8.0",
+    "elysia": "^0.8.8",
+    "graphql": "^16.8.1"
+  },
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "build": "bun build src/index.ts",
+    "start": "NODE_ENV=production bun src/index.ts",
+    "test": "bun test"
   }
 }

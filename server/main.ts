@@ -1,13 +1,31 @@
-const PORT = 3000;
-const NODE_ENV = process.env.NODE_ENV ?? "development";
+import { Elysia } from 'elysia'
+import { apollo, gql } from '@elysiajs/apollo'
 
-console.log(PORT, NODE_ENV);
+const app = new Elysia()
+    .use(
+        apollo({
+            typeDefs: gql`
+                type Book {
+                    title: String
+                    author: String
+                }
 
-const server = Bun.serve({
-  port: PORT,
-  fetch() {
-    return new Response("Welcome to Bun!");
-  },
-});
-
-console.log(`[${NODE_ENV}] Serving http://localhost:${server.port}`);
+                type Query {
+                    books: [Book]
+                }
+            `,
+            resolvers: {
+                Query: {
+                    books: () => {
+                        return [
+                            {
+                                title: 'Elysia',
+                                author: 'saltyAom'
+                            }
+                        ]
+                    }
+                }
+            }
+        })
+    )
+    .listen(3000)
